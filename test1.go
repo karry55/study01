@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"time"
 )
 
 func hello() {
@@ -10,8 +9,11 @@ func hello() {
 }
 
 func main() {
-	for i := 0; true; i++ {
-		fmt.Println(time.Now())
-		time.Sleep(2 * time.Second)
-	}
+	// for i := 0; true; i++ {
+	// 	fmt.Println(time.Now())
+	// 	time.Sleep(2 * time.Second)
+	// }
+	fmt.Println("Hello, World!")
+	fmt.Printf("%v %Ts\n", "ff", "ff")
+	fmt
 }
