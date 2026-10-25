@@ -1,34 +1,34 @@
 package main
 
-import "fmt"
+// import "fmt"
 
-type Animal interface {
-	sing()
-	jump()
-	rap()
-}
+// type Animal interface {
+// 	sing()
+// 	jump()
+// 	rap()
+// }
 
-type Chicken struct {
-	Name string
-}
+// type Chicken struct {
+// 	Name string
+// }
 
-func (c Chicken) sing() {
-	fmt.Println("chicken 唱")
-}
+// func (c Chicken) sing() {
+// 	fmt.Println("chicken 唱")
+// }
 
-func (c Chicken) jump() {
-	fmt.Println("chicken 跳")
-}
+// func (c Chicken) jump() {
+// 	fmt.Println("chicken 跳")
+// }
 
-func (c Chicken) rap() {
-	fmt.Println("chincken rap")
-}
+// func (c Chicken) rap() {
+// 	fmt.Println("chincken rap")
+// }
 
-func main() {
-	var animal Animal
+// func main() {
+// 	var animal Animal
 
-	animal = Chicken{"ik"}
-	animal.sing()
-	animal.jump()
-	animal.rap()
-}
+// 	animal = Chicken{"ik"}
+// 	animal.sing()
+// 	animal.jump()
+// 	animal.rap()
+// }
