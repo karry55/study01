@@ -20,7 +20,7 @@ func TestAdd(t *testing.T) {
 		A, B, Expected int
 	}{
 		{"a1", 1, 2, 3},
-		{"a2", 2, -2, -1},
+		{"a2", 2, -2, 0},
 		{"a3", 2, 0, 2},
 	}
 
