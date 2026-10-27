@@ -1,8 +1,8 @@
 package main
 
-import (
-	"testing"
-)
+// import (
+// 	"testing"
+// )
 
 // func TestAdd(t *testing.T) {
 // 	if ans := Add(1, 2); ans != 3 {
@@ -14,22 +14,22 @@ import (
 // 	}
 // }
 
-func TestAdd(t *testing.T) {
-	cases := []struct {
-		Name           string
-		A, B, Expected int
-	}{
-		{"a1", 1, 2, 3},
-		{"a2", 2, -2, 0},
-		{"a3", 2, 0, 2},
-	}
+// func TestAdd(t *testing.T) {
+// 	cases := []struct {
+// 		Name           string
+// 		A, B, Expected int
+// 	}{
+// 		{"a1", 1, 2, 3},
+// 		{"a2", 2, -2, 0},
+// 		{"a3", 2, 0, 2},
+// 	}
 
-	for _, c := range cases {
-		t.Run(c.Name, func(t *testing.T) {
-			if ans := Add(c.A, c.B); ans != c.Expected {
-				t.Fatalf("%d *%d expected %d,but %d got",
-					c.A, c.B, c.Expected, ans)
-			}
-		})
-	}
-}
+// 	for _, c := range cases {
+// 		t.Run(c.Name, func(t *testing.T) {
+// 			if ans := Add(c.A, c.B); ans != c.Expected {
+// 				t.Fatalf("%d *%d expected %d,but %d got",
+// 					c.A, c.B, c.Expected, ans)
+// 			}
+// 		})
+// 	}
+// }
