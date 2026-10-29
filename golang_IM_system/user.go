@@ -123,10 +123,8 @@ func (this *User) DoMessage(msg string) {
 	}
 }
 
-// 消息广播处理
-func (this *User) BroadCast(user *User, msg string) {
-	this.server.BroadCast(user, msg)
-}
+// 修改：删除了 User.BroadCast（只是转发给 Server.BroadCast 的重复代码），
+// 调用处已统一使用 this.server.BroadCast(...)
 
 // 监听当前User channel的方法,一旦有消息,就直接发送给对端客户端
 func (this *User) ListenMessage() {

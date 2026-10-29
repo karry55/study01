@@ -87,56 +87,47 @@ func (client *Client) SelectUsers() {
 	}
 }
 
+// 修改：新增 chatOnce，把 PublicChat / PrivateChat 里重复的
+// "读一行 → 判 exit → 判空 → 发送" 逻辑抽到这里。
+// prefix 是消息前缀（公聊为空，私聊为 "to|张三|"），返回 false 表示退出当前聊天。
+func (client *Client) chatOnce(prefix, prompt string) bool {
+	fmt.Print(prompt)
+	chatMsg := readLine()
+	if chatMsg == "exit" {
+		return false
+	}
+	if chatMsg == "" {
+		return true
+	}
+
+	if _, err := client.conn.Write([]byte(prefix + chatMsg + "\n")); err != nil {
+		fmt.Println("conn Write err: ", err)
+		return false
+	}
+	return true
+}
+
 // 私聊模式
 func (client *Client) PrivateChat() {
 	client.SelectUsers()
-	fmt.Println(">>>>>>>请输入聊天对象[用户名],exit退出")
+	fmt.Print(">>>>>>>请输入聊天对象[用户名],exit退出: ")
 
 	remoteName := readLine()
 	if remoteName == "exit" || remoteName == "" {
 		return
 	}
 
-	for {
-		fmt.Println(">>>>>>>>请输入消息内容,exit退出:")
-		chatMsg := readLine()
-		if chatMsg == "exit" {
-			return
-		}
-		if chatMsg == "" {
-			continue
-		}
-
-		sendMsg := "to|" + remoteName + "|" + chatMsg + "\n"
-		_, err := client.conn.Write([]byte(sendMsg))
-		if err != nil {
-			fmt.Println("conn Write err: ", err)
-			return
-		}
+	// 修改：原来这里内层 for 不读输入，会死循环空转；改用 chatOnce
+	for client.chatOnce("to|"+remoteName+"|", ">>>>>>>>请输入消息内容,exit退出: ") {
 	}
 }
 
+// 公聊模式
 func (client *Client) PublicChat() {
-	//提示用户输入消息
-	fmt.Println(">>>>>>>请输入聊天内容,exit退出.....")
-
-	for {
-		chatMsg := readLine()
-		if chatMsg == "exit" {
-			return
-		}
-		if chatMsg == "" {
-			continue
-		}
-
-		//发给服务器
-		sendMsg := chatMsg + "\n"
-		_, err := client.conn.Write([]byte(sendMsg))
-		if err != nil {
-			fmt.Println("conn Write err: ", err)
-			return
-		}
+	// 修改：改用 chatOnce，去掉和 PrivateChat 重复的循环体
+	for client.chatOnce("", ">>>>>>>请输入聊天内容,exit退出: ") {
 	}
+	fmt.Println()
 }
 
 func (client *Client) UpdateName() bool {
