@@ -52,11 +52,30 @@ func (this *User) Offline() {
 	this.BroadCast(this, "下线")
 }
 
-// 用户处理消息的业务
-func (this *User) DoMessage(msg string) {
-	this.server.BroadCast(this, msg)
+// 给当前user对应的客户发送消息
+func (this *User) sendMsg(msg string) {
+	this.conn.Write([]byte(msg))
 }
 
+// 用户处理消息的业务
+func (this *User) DoMessage(msg string) {
+	if msg == "who" {
+		//查询当前在线用户都有哪些
+
+		this.server.mapLock.Lock()
+		this.server.mapLock.Unlock()
+		for _, user := range this.server.OnlineMap {
+			onlineMsg := "[" + user.Addr + "]" + user.Name + "在线...\n"
+			this.sendMsg(onlineMsg)
+		}
+		this.server.mapLock.Unlock()
+
+	} else {
+		this.server.BroadCast(this, msg)
+	}
+}
+
+// 消息广播处理
 func (this *User) BroadCast(param1 *User, s string) {
 	panic("unimplemented")
 }
